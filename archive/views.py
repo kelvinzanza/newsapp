@@ -25,10 +25,20 @@ def safe_get_group(name):
 
 
 def welcome_view(request):
-    '''
-    Renders the welcome page, showing all published articles and
-    newsletters, a list of all journalists, and a list of all publishers.
-    '''
+    """
+    Render the welcome page with published articles, newsletters, journalists,
+    and publishers.
+
+    The view collects published articles and newsletters, combines them into a
+    single list ordered by publication date, and fetches all journalists and
+    publishers to display on the welcome page.
+
+    Args:
+        request (HttpRequest): The incoming HTTP request.
+
+    Returns:
+        HttpResponse: Rendered 'welcome.html' template with context data.
+    """
     published_articles = Article.objects.filter(status='published')
     published_newsletters = Newsletter.objects.filter(status='published')
 
