@@ -56,18 +56,28 @@ class RegistrationForm(forms.ModelForm):
 
 
 class ArticleForm(forms.ModelForm):
-    '''
-    Article form.
-    '''
+    """
+    Form for creating and updating Article instances.
+
+    Meta:
+        model (Article): The model this form is based on.
+        fields (list): The fields to include in the form ('title' and 'content').
+    """
+
     class Meta:
         model = Article
         fields = ['title', 'content']
 
 
 class NewsletterForm(forms.ModelForm):
-    '''
-    Newsletter form.
-    '''
+    """
+    Form for creating and updating Newsletter instances.
+
+    Meta:
+        model (Newsletter): The model this form is based on.
+        fields (list): The fields to include in the form ('title' and 'content').
+    """
+
     class Meta:
         model = Newsletter
         fields = ['title', 'content']
