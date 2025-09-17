@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Publishers{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-4xl font-bold text-gray-800 text-center mb-8">All Publishers</h1>
+    
+    <div class="space-y-6">
+        {% for publisher in publishers %}
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ publisher.name }}</h2>
+                <p class="text-gray-600">{{ publisher.description }}</p>
+                <div class="mt-4 flex flex-wrap gap-2 text-sm text-gray-500">
+                    <span>Journalists: {{ publisher.journalists.count }}</span>
+                    <span>Editors: {{ publisher.editors.count }}</span>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-500">No publishers found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

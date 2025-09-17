@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Archive{% endblock %}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'archive/styles.css' %}">
+    
+</head>
+<body class="bg-gray-100 font-inter min-h-screen">
+    {% include 'nav.html' %}
+    <main class="mt-20">
+        {% block content %}
+        <!-- Content will be injected here -->
+        {% endblock %}
+    </main>
+</body>
+</html>

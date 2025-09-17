@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load archive_tags %}
+
+{% block title %}My Subscriptions{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">My Subscriptions</h1>
+
+    <div class="space-y-8">
+        <!-- Subscribed Publishers -->
+        <section>
+            <h2 class="text-3xl font-bold text-gray-700 mb-4">Publishers</h2>
+            <div class="bg-white p-8 rounded-lg shadow-md space-y-4">
+                {% if subscribed_publishers %}
+                    {% for publisher in subscribed_publishers %}
+                    <div class="border-b pb-4 last:border-b-0">
+                        <h3 class="text-2xl font-semibold text-gray-800">
+                            <a href="{% url 'publisher_detail' publisher.pk %}" class="hover:text-indigo-600 transition-colors duration-200">
+                                {{ publisher.name }}
+                            </a>
+                        </h3>
+                        <p class="mt-2 text-gray-700">{{ publisher.description|truncatewords:50 }}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center text-gray-500">You are not subscribed to any publishers yet.</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Subscribed Journalists -->
+        <section>
+            <h2 class="text-3xl font-bold text-gray-700 mb-4">Journalists</h2>
+            <div class="bg-white p-8 rounded-lg shadow-md space-y-4">
+                {% if subscribed_journalists %}
+                    {% for journalist in subscribed_journalists %}
+                    <div class="border-b pb-4 last:border-b-0">
+                        <h3 class="text-2xl font-semibold text-gray-800">
+                            <a href="{% url 'articles_by_journalist' journalist.username %}" class="hover:text-indigo-600 transition-colors duration-200">
+                                {{ journalist.username }}
+                            </a>
+                        </h3>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center text-gray-500">You are not subscribed to any journalists yet.</p>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

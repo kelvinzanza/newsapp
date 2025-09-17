@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Our Journalists{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Our Journalists</h1>
+        <p class="text-center text-gray-600 mb-8">Click on a journalist to see all their published articles.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for journalist in journalists %}
+            <a href="{% url 'articles_by_journalist' journalist.username %}" class="block bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors duration-200">
+                <div class="flex items-center space-x-4">
+                    <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white text-lg font-bold">
+                        {{ journalist.username|first|upper }}
+                    </span>
+                    <h2 class="text-xl font-semibold text-gray-900">{{ journalist.username }}</h2>
+                </div>
+            </a>
+            {% empty %}
+            <p class="text-center text-gray-500 col-span-full">No journalists found.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="{% url 'welcome' %}" class="inline-block bg-indigo-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300">
+                Back to Welcome Page
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

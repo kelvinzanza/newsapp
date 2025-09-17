@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load archive_tags %}
+
+{% block title %}Welcome to the News Archive{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-5xl font-extrabold text-gray-900 leading-tight">Latest News</h1>
+        <p class="mt-4 text-lg text-gray-600">Explore the latest articles and newsletters from our journalists.</p>
+    </div>
+
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Journalists</h2>
+        <div class="flex overflow-x-auto space-x-4 pb-4">
+            {% for journalist in journalists %}
+            <a href="{% url 'articles_by_journalist' journalist.username %}" class="flex-shrink-0 bg-white shadow-lg rounded-full p-2 hover:bg-gray-200 transition-colors duration-200 ease-in-out">
+                <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white font-medium">
+                    {{ journalist.username|first|upper }}
+                </span>
+                <span class="mt-2 text-sm font-medium text-gray-700 block text-center">{{ journalist.username }}</span>
+            </a>
+            {% empty %}
+            <p class="text-gray-500">No journalists registered yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Publishers</h2>
+        <div class="flex overflow-x-auto space-x-4 pb-4">
+            {% for publisher in publishers %}
+            <a href="{% url 'publisher_detail' pk=publisher.pk %}" class="flex-shrink-0 bg-white shadow-lg rounded-lg p-4 hover:bg-gray-200 transition-colors duration-200 ease-in-out flex items-center space-x-3">
+                <span class="text-2xl font-bold text-indigo-500">{{ publisher.name|first }}</span>
+                <span class="text-lg font-medium text-gray-700 block">{{ publisher.name }}</span>
+            </a>
+            {% empty %}
+            <p class="text-gray-500">No publishers registered yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for item in items %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl">
+            <div class="p-6">
+                <p class="text-sm font-semibold text-indigo-600 mb-2">
+                    {% if item|get_model_name == 'Article' %}
+                        Article
+                    {% else %}
+                        Newsletter
+                    {% endif %}
+                </p>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ item.title }}</h3>
+                <p class="text-gray-600 text-sm mb-4">
+                    By {{ item.author.username }} on {{ item.published_at|date:"F j, Y" }}
+                </p>
+                <div class="text-sm text-gray-700 line-clamp-3">
+                    {{ item.content|striptags|truncatechars:150 }}
+                </div>
+            </div>
+            <div class="px-6 pb-6 pt-0">
+                {% if item|get_model_name == 'Article' %}
+                    <a href="{% url 'article_detail' item.id %}" class="inline-block px-6 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                        Read More
+                    </a>
+                {% else %}
+                    <a href="{% url 'newsletter_detail' item.id %}" class="inline-block px-6 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                        Read More
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-gray-500 col-span-full">No published articles or newsletters available yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,156 @@
+
+/*Not really using this anymore but would like to keep it if 
+i maybe want to use it in future*/
+
+
+
+/* General body styles and typography for a clean, professional look */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Nav Bar Styles */
+.top-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Home link in nav bar */
+.top-nav a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.25rem;
+}
+
+.top-nav a:hover {
+    color: #0056b3;
+}
+
+/* User links in nav bar */
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Main content wrapper to push content below fixed nav */
+.main-content {
+    margin-top: 5rem;
+    padding: 2rem;
+}
+
+/* Article Grid Layout */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+/* Single Article Card */
+.article-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.article-card h2 {
+    margin: 0;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.article-card p {
+    padding: 0 1rem 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Read more link */
+.article-card a.read-more {
+    display: block;
+    text-align: right;
+    padding: 0 1rem 1rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.article-card a.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Centering container for login/register pages */
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form and button styles */
+.register-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form p {
+    margin: 10px 0;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{% block title %}My Submissions{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">My Submissions</h1>
+    
+    <!-- Create buttons -->
+    <div class="flex justify-center space-x-4 mb-8">
+        <a href="{% url 'create_article' %}" class="inline-block bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg">
+            Create New Article
+        </a>
+        <a href="{% url 'create_newsletter' %}" class="inline-block bg-green-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-green-700 transition duration-300 shadow-lg">
+            Create New Newsletter
+        </a>
+    </div>
+
+    <!-- Section for Articles -->
+    <h2 class="text-3xl font-bold text-gray-700 mt-8 mb-4">My Articles</h2>
+    <div class="space-y-6">
+        {% for item in all_submissions %}
+            {% if item.model_type == 'article' %}
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ item.title }}</h3>
+                    <p class="text-sm text-gray-500 mb-4">Status: <span class="font-bold text-indigo-600">{{ item.status|capfirst }}</span></p>
+                    
+                    <div class="flex space-x-4 mt-4">
+                        {% if item.status == 'published' %}
+                            <a href="{% url 'article_detail' item.id %}" class="inline-block bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700 transition duration-300">Read Article</a>
+                        {% endif %}
+                        
+                        <a href="{% url 'edit_article' item.id %}" class="inline-block bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gray-400 transition duration-300">Edit Article</a>
+
+                        <form action="{% url 'delete_article' item.id %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300">Delete Article</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p class="text-center text-gray-500">You have not submitted any articles yet.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Section for Newsletters -->
+    <h2 class="text-3xl font-bold text-gray-700 mt-8 mb-4">My Newsletters</h2>
+    <div class="space-y-6">
+        {% for item in all_submissions %}
+            {% if item.model_type == 'newsletter' %}
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ item.title }}</h3>
+                    <p class="text-sm text-gray-500 mb-4">Status: <span class="font-bold text-green-600">{{ item.status|capfirst }}</span></p>
+                    
+                    <div class="flex space-x-4 mt-4">
+                        {% if item.status == 'published' %}
+                            <a href="{% url 'newsletter_detail' item.id %}" class="inline-block bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700 transition duration-300">Read Newsletter</a>
+                        {% endif %}
+                        
+                        <a href="{% url 'edit_newsletter' item.id %}" class="inline-block bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg hover:bg-gray-400 transition duration-300">Edit Newsletter</a>
+                        
+                        <form action="{% url 'delete_newsletter' item.id %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300">Delete Newsletter</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p class="text-center text-gray-500">You have not submitted any newsletters yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
