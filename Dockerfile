@@ -2,13 +2,18 @@
 FROM python:3.12-slim
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y build-essential default-libmysqlclient-dev pkg-config && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
+# Copy requirements and install Python dependencies
 COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
@@ -16,7 +21,7 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app/
 
-# Expose Django port
+# Expose port
 EXPOSE 8000
 
 # Run migrations and start server
