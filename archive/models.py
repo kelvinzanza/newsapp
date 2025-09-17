@@ -44,6 +44,16 @@ class Profile(models.Model):
 
 
 class Publisher(models.Model):
+    """
+    Represents a publishing company or organization.
+
+    Attributes:
+        name (CharField): The unique name of the publisher.
+        description (TextField): Optional description of the publisher.
+        editors (ManyToManyField): Users with editing permissions for the publisher.
+        journalists (ManyToManyField): Users associated as journalists for the publisher.
+    """
+
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     editors = models.ManyToManyField(
@@ -54,6 +64,12 @@ class Publisher(models.Model):
     )
 
     def __str__(self):
+        """
+        Returns the string representation of the Publisher.
+
+        Returns:
+            str: The publisher's name.
+        """
         return self.name
 
 
